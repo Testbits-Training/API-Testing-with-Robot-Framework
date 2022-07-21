@@ -2,6 +2,7 @@
 Test Setup        create session    API_testing    ${base_url}
 Library           RequestsLibrary
 Library           JSONLibrary
+Library           os
 Library           Collections
 
 *** Variables ***
@@ -14,6 +15,13 @@ Get Request and Validation single user
     @{fn_json_data}    get value from json    ${json_respond}    data.first_name
     log to console    @{fn_json_data}
     should be equal    @{fn_json_data}    Janet
+
+Get Request and Validation list users
+    ${get_respond_11}=    get on session    API_testing    url=/api/users?page=2
+    ${json_respond}=    to json    ${get_respond_11.content}
+    ${json_value}=    get value from json    ${json_respond}    $.data[0].email
+    log to console    ${json_value[0]}
+    should be equal    ${json_value[0]}    michael.lawson@reqres.in
 
 Post request student
     ${body2}=    create dictionary    name=morpheus    job=leader
@@ -41,9 +49,3 @@ Delete request student
     log to console    ${delete_response4.status_code}
     ${status_code4}    convert to string    ${delete_response4.status_code}
     should be equal    ${status_code4}    404
-
-KIV_Get Request and Validation list users
-    ${get_respond11}=    get on session    API_testing    url=/api/users?page=2
-    ${json_respond11}=    set variable    ${get_respond11.json()}
-    @{fn_json_data11}=    get value from json    ${json_respond11}    data.first_name
-    ${f_name11}=    get from list    @{fn_json_data11}    0
