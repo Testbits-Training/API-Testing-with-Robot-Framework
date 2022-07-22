@@ -48,4 +48,8 @@ Delete request student
     ${delete_response4}=    delete request    API_testing    url=/api/users/2
     log to console    ${delete_response4.status_code}
     ${status_code4}    convert to string    ${delete_response4.status_code}
-    should be equal    ${status_code4}    404
+    should be equal    ${status_code4}    204
+
+Header Validation
+    ${get_header}=    get on session    API testing    url=/api/users/2
+    log to console    ${get_header.headers}

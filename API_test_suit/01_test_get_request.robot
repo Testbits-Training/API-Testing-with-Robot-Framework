@@ -19,3 +19,6 @@ Get Request Single User
     should contain    ${body}    Janet
     #${hearder_contenttypevalue}=    get from dictionary    ${get_respond.headers}    Content-Type
     #should be equal    ${hearder_contenttypevalue}    application/json; charset=utf-8
+
+Get cookies and validation:
+    create session    Cookies API
