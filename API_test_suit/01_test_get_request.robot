@@ -21,4 +21,6 @@ Get Request Single User
     #should be equal    ${hearder_contenttypevalue}    application/json; charset=utf-8
 
 Get cookies and validation:
-    create session    Cookies API
+    create session    Cookies_API    http://jsonplaceholder.typicode.con
+    ${get_cookies}=    get request    Cookies_API    /photos
+    log to console    ${get_cookies.cookies}
