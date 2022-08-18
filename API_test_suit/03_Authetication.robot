@@ -19,3 +19,5 @@ BasicAuthTest
 BearerAuthTest
     create session    bearertoken    ${base_url2}
     ${header}    create dictionary    Authorization=${bearertoken}    Content-Type=text/xml
+    ${req_body}=    get file
+    ${post_req}=    post request    bearertoken    /    data=${req_body}    hearders=${header}
